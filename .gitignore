@@ -1,0 +1,14 @@
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Joe backup files
+*~
+DEADJOE
+
+# Configuration files
+.env
+.env.*
+!.env.sample
