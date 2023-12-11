@@ -4,6 +4,15 @@ ARG PG_MAJOR=14
 # Starting from PostgreSQL image
 FROM postgres:$PG_MAJOR as builder
 
+# Create a new image
+FROM scratch
+COPY --from=builder / /
+
+# Metadata
+LABEL version="1.0"
+LABEL description="Patroni Docker Image"
+LABEL maintainer="Mattia Martinello <mattia@mattiamartinello.com>"
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
@@ -29,14 +38,6 @@ RUN apt-get remove --purge -y \
 # Clean
 RUN apt-get clean
 
-# Create a new image
-FROM scratch
-COPY --from=builder / /
-
-# Metadata
-LABEL version="1.0"
-LABEL description="Patroni Docker Image"
-LABEL maintainer="Mattia Martinello <mattia@mattiamartinello.com>"
 
 # Install Patroni
 RUN pip install patroni[psycopg2,etcd]
