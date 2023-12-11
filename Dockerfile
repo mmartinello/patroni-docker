@@ -2,12 +2,7 @@
 ARG PG_MAJOR=14
 
 # Starting from PostgreSQL image
-FROM postgres:$PG_MAJOR
-
-# Metadata
-LABEL version="1.0"
-LABEL description="Patroni Docker Image"
-LABEL maintainer="Mattia Martinello <mattia@mattiamartinello.com>"
+FROM postgres:$PG_MAJOR as builder
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -25,10 +20,6 @@ ENV VIRTUAL_ENV=/app
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-# Install Patroni
-RUN pip install patroni[psycopg2,etcd]
-COPY run.sh /
-
 # Remove build dependencies
 RUN apt-get remove --purge -y \
     build-essential \
@@ -37,6 +28,19 @@ RUN apt-get remove --purge -y \
 
 # Clean
 RUN apt-get clean
+
+# Create a new image
+FROM scratch
+COPY --from=builder / /
+
+# Metadata
+LABEL version="1.0"
+LABEL description="Patroni Docker Image"
+LABEL maintainer="Mattia Martinello <mattia@mattiamartinello.com>"
+
+# Install Patroni
+RUN pip install patroni[psycopg2,etcd]
+COPY run.sh /
 
 # Run Patroni
 USER postgres
