@@ -20,13 +20,13 @@ LABEL maintainer="Mattia Martinello <mattia@mattiamartinello.com>"
 ARG PG_MAJOR=14
 
 # Install pg_cron
-ARG INSTALL_PG_CRON=false
+ARG INSTALL_PG_CRON=true
 
 # Install PostGIS
-ARG INSTALL_POSTGIS=false
+ARG INSTALL_POSTGIS=true
 
 # Install pgRouting
-ARG INSTALL_PGROUTING=false
+ARG INSTALL_PGROUTING=true
 
 # Install build stuffs
 RUN apt-get update && apt-get install -y --no-install-recommends \
