@@ -22,6 +22,50 @@ data.
 [pgRouting](https://pgrouting.org/) extends the PostGIS / PostgreSQL geospatial
 database to provide geospatial routing functionality.
 
+## Tags
+
+Tags use the following schema: `<patroni_version>-pg<pg_major_version>-<image_variant>`.
+
+Image variants refers to which PostgreSQL extensions are installed
+
+* `pgcron`: pg_cron
+* `pgcron-postgis`: pg_cron and PostGIS
+* `pgcron-pgrouting`: pg_cron and pgRouting
+* `postgis`: PostGIS
+* `postgis-pgrouting`: PostGIS and pgRouting
+* `pgrouting`: pgRouting
+
+PostgreSQL and Patroni are installed in all image variants.
+
+If image variant is not specified, all extensions are installed.
+
+All images are based on Debian 12 Bullseye.
+
+## Volumes
+
+The following volumes should be configured or mounted for data to be
+persistent:
+
+* `/var/log/patroni`: the log directory where Patroni writes log files in
+* `/var/lib/postgresql`: the PostgreSQL data directory where PostgreSQL write
+data into
+* `/etc/patroni.yml`: the Patroni local configuration file
+
+## Ports
+
+This Docker image listens on the following ports:
+
+* PostgreSQL port: default `5432`
+* Patroni REST API port: default `8008`
+
+## Configuration
+
+Patroni can be configured in several ways: global dynamic configuration,
+local configuration file or environent variables. You can use the configuration
+type you prefer, or a group of them. Please refer to [Patroni documentation]
+(https://patroni.readthedocs.io/en/latest/patroni_configuration.html) for
+more information.
+
 ## Build instructions
 
 ### Build arguments (environment variables)
@@ -54,31 +98,6 @@ If you wish to specify some build arguments you can add them with the
 ```
 docker build --build-arg='INSTALL_PG_CRON=false' -t <image_tag> .
 ```
-
-## Volumes
-
-The following volumes should be configured or mounted for data to be
-persistent:
-
-* `/var/log/patroni`: the log directory where Patroni writes log files in
-* `/var/lib/postgresql`: the PostgreSQL data directory where PostgreSQL write
-data into
-* `/etc/patroni.yml`: the Patroni local configuration file
-
-## Ports
-
-This Docker image listens on the following ports:
-
-* PostgreSQL port: default `5432`
-* Patroni REST API port: default `8008`
-
-## Configuration
-
-Patroni can be configured in several ways: global dynamic configuration,
-local configuration file or environent variables. You can use the configuration
-type you prefer, or a group of them. Please refer to [Patroni documentation]
-(https://patroni.readthedocs.io/en/latest/patroni_configuration.html) for
-more information.
 
 ## Maintainer
 
