@@ -84,6 +84,23 @@ more information.
 `true`, you can set it to `false` or any other value if you don't want
 **pgRouting** to be installed. The default value is `true`.
 
+### Installing additional PostgreSQL versions
+
+To install multiple additional versions of PostgreSQL in the image, you can set
+the `ADDITIONAL_PG_MAJORS` environment variable with an array containing the
+additional major PostgreSQL versions you want to install.
+
+This is particularly useful when you need to perform an upgrade of PostgreSQL
+between major versions using the pg_upgrade command, which requires the
+binaries of the previous PostgreSQL version you are upgrading from.
+
+For example, to build a Docker image with additional PostgreSQL versions
+12 and 13, you can use the following docker build command:
+
+```
+docker build --build-arg PG_MAJOR=16 --build-arg ADDITIONAL_PG_MAJORS="12 13" -t my-postgres-patroni-image .
+```
+
 ### Build the image
 
 You can build the Docker image using the `docker build` command:
