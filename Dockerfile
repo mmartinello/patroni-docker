@@ -2,7 +2,7 @@
 # PostGIS, pgRouting and Patroni
 
 # PostgreSQL major version
-ARG PG_MAJOR=14
+ARG PG_MAJOR=16
 
 # Starting from PostgreSQL image
 FROM postgres:$PG_MAJOR as builder
@@ -11,22 +11,29 @@ FROM postgres:$PG_MAJOR as builder
 FROM scratch
 COPY --from=builder / /
 
+# PostgreSQL major version
+ARG PG_MAJOR=16
+
+# Patroni version
+ARG PATRONI_VERSION=3.3.0
+
+# PostgreSQL additional version (will additionally installed beyond the major
+# version specified before only if this variable is specified)
+ARG ADDITIONAL_PG_MAJORS=""
+
+# Install pg_cron
+ARG INSTALL_PG_CRON=false
+
+# Install PostGIS
+ARG INSTALL_POSTGIS=false
+
+# Install pgRouting
+ARG INSTALL_PGROUTING=false
+
 # Metadata
 LABEL version="1.0"
 LABEL description="Patroni Docker Image"
 LABEL maintainer="Mattia Martinello <mattia@mattiamartinello.com>"
-
-# PostgreSQL major version
-ARG PG_MAJOR=14
-
-# Install pg_cron
-ARG INSTALL_PG_CRON=true
-
-# Install PostGIS
-ARG INSTALL_POSTGIS=true
-
-# Install pgRouting
-ARG INSTALL_PGROUTING=true
 
 # Install build stuffs
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -69,14 +76,22 @@ RUN if [ "$INSTALL_PGROUTING" = "true" ]; then \
     fi
 
 # Install Patroni
-RUN pip install patroni[psycopg2,etcd]
+RUN pip install patroni[psycopg2,etcd]==$PATRONI_VERSION
 COPY run.sh /
+
+# Install additionals PostgreSQL versions
+# looping through ADDITIONAL_PG_MAJORS array
+RUN for ADDITIONAL_PG_MAJOR in $ADDITIONAL_PG_MAJORS; do \
+    apt-get update -y && apt-get install -y \
+    postgresql-$ADDITIONAL_PG_MAJOR \
+    && rm -rf /var/lib/apt/lists/*; \
+    done;
 
 # Remove build dependencies
 RUN apt-get remove --purge -y \
     build-essential \
     libpq-dev \
-    && rm -rf /var/lib/apt/lists/*    
+    && rm -rf /var/lib/apt/lists/*
 
 # Clean
 RUN apt-get clean

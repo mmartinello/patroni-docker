@@ -99,6 +99,48 @@ If you wish to specify some build arguments you can add them with the
 docker build --build-arg='INSTALL_PG_CRON=false' -t <image_tag> .
 ```
 
+### Installing additional PostgreSQL versions
+
+To install multiple additional versions of PostgreSQL in the image, you can set
+the `ADDITIONAL_PG_MAJORS` environment variable with an array containing the
+additional major PostgreSQL versions you want to install.
+
+This is particularly useful when you need to perform an upgrade of PostgreSQL
+between major versions using the pg_upgrade command, which requires the
+binaries of the previous PostgreSQL version you are upgrading from.
+
+For example, to build a Docker image with additional PostgreSQL versions
+12 and 13, you can use the following docker build command:
+
+```
+docker build --build-arg PG_MAJOR=16 --build-arg ADDITIONAL_PG_MAJORS="12 13" -t my-postgres-patroni-image .
+```
+
+## Volumes
+
+The following volumes should be configured or mounted for data to be
+persistent:
+
+* `/var/log/patroni`: the log directory where Patroni writes log files in
+* `/var/lib/postgresql`: the PostgreSQL data directory where PostgreSQL write
+data into
+* `/etc/patroni.yml`: the Patroni local configuration file
+
+## Ports
+
+This Docker image listens on the following ports:
+
+* PostgreSQL port: default `5432`
+* Patroni REST API port: default `8008`
+
+## Configuration
+
+Patroni can be configured in several ways: global dynamic configuration,
+local configuration file or environent variables. You can use the configuration
+type you prefer, or a group of them. Please refer to [Patroni documentation]
+(https://patroni.readthedocs.io/en/latest/patroni_configuration.html) for
+more information.
+
 ## Maintainer
 
 Mattia Martinello
