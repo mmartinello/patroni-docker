@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Run sshd for pgBackRest
+PGBACKREST_SSH_RUN=${PGBACKREST_SSH_RUN:-false}
+
+if [ "$PGBACKREST_SSH_RUN" == "true" ]; then
+    echo "Executing sshd ..."
+    
+    sudo /usr/sbin/sshd &
+fi
+
 # Run Patroni
 echo "Executing Patroni ..."
 

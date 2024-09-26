@@ -30,6 +30,9 @@ ARG INSTALL_POSTGIS=false
 # Install pgRouting
 ARG INSTALL_PGROUTING=false
 
+# Install pgBackRest
+ARG INSTALL_PGBACKREST=false
+
 # Metadata
 LABEL version="1.0"
 LABEL description="Patroni Docker Image"
@@ -73,6 +76,23 @@ RUN if [ "$INSTALL_PGROUTING" = "true" ]; then \
         postgresql-$PG_MAJOR-pgrouting \
         postgresql-$PG_MAJOR-pgrouting-scripts \
         && rm -rf /var/lib/apt/lists/*; \
+    fi
+
+# Install pgBackRest if enabled
+RUN if [ "$INSTALL_PGBACKREST" = "true" ]; then \
+        apt-get update -y && apt-get install -y \
+        openssh-client \
+        openssh-server \
+        pgbackrest \
+        sudo \
+        && rm -rf /var/lib/apt/lists/* \
+        
+        && echo "postgres   ALL=(ALL:ALL) NOPASSWD: /usr/sbin/sshd" >>/etc/sudoers.d/ssh; \
+        
+        && /var/lib/postgresql/.ssh \
+        && chmod 700 /var/lib/postgresql/.ssh \
+        && touch /var/lib/postgresql/.ssh/known_hosts \
+        && chmod 644 /var/lib/postgresql/.ssh/known_hosts;\
     fi
 
 # Install Patroni
