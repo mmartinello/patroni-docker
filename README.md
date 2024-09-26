@@ -74,15 +74,20 @@ more information.
 
 `INSTALL_PG_CRON`: **pg_cron** will be installed if this variable is set to
 `true`, you can set it to `false` or any other value if you don't want
-**pg_cron** to be installed. The default value is `true`.
+**pg_cron** to be installed. The default value is `false`.
 
 `INSTALL_POSTGIS`: **PostGis** will be installed if this variable is set to
 `true`, you can set it to `false` or any other value if you don't want
-**PostGis** to be installed. The default value is `true`.
+**PostGis** to be installed. The default value is `false`.
 
 `INSTALL_PGROUTING`: **pgRouting** will be installed if this variable is set to
 `true`, you can set it to `false` or any other value if you don't want
-**pgRouting** to be installed. The default value is `true`.
+**pgRouting** to be installed. The default value is `false`.
+
+`ADDITIONAL_PG_MAJORS`: to install multiple PostgreSQL major versions in the
+image, declare here which major versions have to be installed other than the
+main major version declared in `PG_MAJOR`. Multiple major versions should be
+separated by spaces.
 
 ### Installing additional PostgreSQL versions
 
