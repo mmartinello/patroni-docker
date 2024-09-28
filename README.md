@@ -22,6 +22,10 @@ data.
 [pgRouting](https://pgrouting.org/) extends the PostGIS / PostgreSQL geospatial
 database to provide geospatial routing functionality.
 
+This Docker image also allows to install additional PostgreSQL major versions
+(useful in case of upgrades) and additional locales (useful if you need
+specific collations for databases).
+
 ## Tags
 
 Tags use the following schema: `<patroni_version>-pg<pg_major_version>-<image_variant>`.
@@ -88,6 +92,10 @@ more information.
 image, declare here which major versions have to be installed other than the
 main major version declared in `PG_MAJOR`. Multiple major versions should be
 separated by spaces.
+
+`ADDITIONAL_LOCALES`: to install multiple additional locales, declare here
+which locales you need to be installed other than the default ones.
+Multiple locales have to be separated by spaces.
 
 ### Installing additional PostgreSQL versions
 
