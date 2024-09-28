@@ -21,6 +21,9 @@ ARG PATRONI_VERSION=3.3.0
 # version specified before only if this variable is specified)
 ARG ADDITIONAL_PG_MAJORS=""
 
+# Additional locales to be installed (separated by space)
+ARG ADDITIONAL_LOCALES=""
+
 # Install pg_cron
 ARG INSTALL_PG_CRON=false
 
@@ -46,6 +49,17 @@ RUN apt-get update -y && apt-get install -y \
     python3-pip \
     python3.11-venv \
     && rm -rf /var/lib/apt/lists/*
+
+# Install additional locales if ADDITIONAL_LOCALES is set
+RUN if [ -n "$ADDITIONAL_LOCALES" ]; then \
+        locales=$(echo $ADDITIONAL_LOCALES); \
+        for locale in $locales; do \
+            echo "Installing locale: $locale"; \
+            sed -i "/^#\s*${locale}/s/^#\s*//" /etc/locale.gen; \
+        done && locale-gen; \
+    else \
+        echo "No additional locales to install."; \
+    fi
 
 # Create a virtualenv
 ENV VIRTUAL_ENV=/app
