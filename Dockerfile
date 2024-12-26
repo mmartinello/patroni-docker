@@ -2,7 +2,7 @@
 # PostGIS, pgRouting and Patroni
 
 # PostgreSQL major version
-ARG PG_MAJOR=16
+ARG PG_MAJOR=17
 
 # Starting from PostgreSQL image
 FROM postgres:$PG_MAJOR as builder
@@ -12,10 +12,10 @@ FROM scratch
 COPY --from=builder / /
 
 # PostgreSQL major version
-ARG PG_MAJOR=16
+ARG PG_MAJOR=17
 
 # Patroni version
-ARG PATRONI_VERSION=3.3.0
+ARG PATRONI_VERSION=3.3.5
 
 # PostgreSQL additional version (will additionally installed beyond the major
 # version specified before only if this variable is specified)
@@ -100,13 +100,12 @@ RUN if [ "$INSTALL_PGBACKREST" = "true" ]; then \
         pgbackrest \
         sudo \
         && rm -rf /var/lib/apt/lists/* \
-        
-        && echo "postgres   ALL=(ALL:ALL) NOPASSWD: /usr/sbin/sshd" >>/etc/sudoers.d/ssh; \
-        
-        && /var/lib/postgresql/.ssh \
+        && echo "postgres   ALL=(ALL:ALL) NOPASSWD: /usr/sbin/sshd" >>/etc/sudoers.d/postgres-ssh \
+        && mkdir -p /var/lib/postgresql/.ssh \
         && chmod 700 /var/lib/postgresql/.ssh \
         && touch /var/lib/postgresql/.ssh/known_hosts \
-        && chmod 644 /var/lib/postgresql/.ssh/known_hosts;\
+        && chmod 644 /var/lib/postgresql/.ssh/known_hosts \
+        && mkdir /run/sshd; \
     fi
 
 # Install Patroni

@@ -12,6 +12,10 @@ availability (HA) PostgreSQL solutions using Python. Patroni needs one of the
 following distributed configuration store systems: ZooKeeper, etcd, Consul or
 Kubernetes. In this image Patroni is installed with dependencies for **etcd**.
 
+[pgBackRest](https://pgbackrest.org/) is a reliable backup and restore
+solution for PostgreSQL that seamlessly scales up to the largest databases and
+workloads.
+
 [pg_cron](https://github.com/citusdata/pg_cron) is a simple cron-based job
 scheduler for PostgreSQL.
 
@@ -75,6 +79,10 @@ more information.
 ### Build arguments (environment variables)
 
 `PG_MAJOR`: set the PostgreSQL major version to be used (default `14`).
+
+`INSTALL_PGBACKREST`: **pgBackRest** will be installed if this variable is set to
+`true`, you can set it to `false` or any other value if you don't want
+**pgBackRest** to be installed. The default value is `false`.
 
 `INSTALL_PG_CRON`: **pg_cron** will be installed if this variable is set to
 `true`, you can set it to `false` or any other value if you don't want
