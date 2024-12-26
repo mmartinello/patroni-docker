@@ -34,7 +34,7 @@ ARG INSTALL_POSTGIS=false
 ARG INSTALL_PGROUTING=false
 
 # Install pgBackRest
-ARG INSTALL_PGBACKREST=false
+ARG INSTALL_PGBACKREST=true
 
 # Metadata
 LABEL version="1.0"

@@ -43,11 +43,11 @@ Image variants refers to which PostgreSQL extensions are installed
 * `postgis-pgrouting`: PostGIS and pgRouting
 * `pgrouting`: pgRouting
 
-PostgreSQL and Patroni are installed in all image variants.
+PostgreSQL, Patroni and pgBackRest are installed in all image variants.
 
 If image variant is not specified, all extensions are installed.
 
-All images are based on Debian 12 Bullseye.
+All images are based on Debian 12 Bookworm.
 
 ## Volumes
 
@@ -79,10 +79,6 @@ more information.
 ### Build arguments (environment variables)
 
 `PG_MAJOR`: set the PostgreSQL major version to be used (default `14`).
-
-`INSTALL_PGBACKREST`: **pgBackRest** will be installed if this variable is set to
-`true`, you can set it to `false` or any other value if you don't want
-**pgBackRest** to be installed. The default value is `false`.
 
 `INSTALL_PG_CRON`: **pg_cron** will be installed if this variable is set to
 `true`, you can set it to `false` or any other value if you don't want
