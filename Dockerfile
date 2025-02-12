@@ -92,6 +92,13 @@ RUN if [ "$INSTALL_PGROUTING" = "true" ]; then \
         && rm -rf /var/lib/apt/lists/*; \
     fi
 
+# Install pgvector if enabled
+RUN if [ "$INSTALL_PGVECTOR" = "true" ]; then \
+        apt-get update -y && apt-get install -y \
+        postgresql-$PG_MAJOR-pgvector \
+        && rm -rf /var/lib/apt/lists/*; \
+    fi
+
 # Install pgBackRest if enabled
 RUN if [ "$INSTALL_PGBACKREST" = "true" ]; then \
         apt-get update -y && apt-get install -y \
