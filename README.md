@@ -84,8 +84,7 @@ This Docker image listens on the following ports:
 
 Patroni can be configured in several ways: global dynamic configuration,
 local configuration file or environent variables. You can use the configuration
-type you prefer, or a group of them. Please refer to [Patroni documentation]
-(https://patroni.readthedocs.io/en/latest/patroni_configuration.html) for
+type you prefer, or a group of them. Please refer to [Patroni documentation](https://patroni.readthedocs.io/en/latest/patroni_configuration.html) for
 more information.
 
 ## Build instructions
