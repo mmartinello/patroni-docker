@@ -1,30 +1,48 @@
-PostgreSQL, pg_cron, PostGIS, pgRouting and Patroni Docker image
-================================================================
+PostgreSQL, pgBackRest and Patroni Docker image with additional extensions and
+multiple additional PostgreSQL versions
+===============================================================================
 
-This Docker project builds a Docker image with PostgreSQL with a couple of
-plugins and Patroni installed on it.
+## Description
 
-[PostgreSQL](https://www.postgresql.org/) is a free and open-source relational
+This Docker project builds a Docker image to run a PostgreSQL cluster using
+Patroni.
+
+Some additional extensions and multiple additional PostgreSQL versions can be
+installed if needed.
+
+## Features
+
+The following packages are installed in the image per default:
+
+* [PostgreSQL](https://www.postgresql.org/) is a free and open-source relational
 database management system (RDBMS) emphasizing extensibility and SQL compliance.
 
-[Patroni](https://github.com/zalando/patroni) is a template for high
+* [Patroni](https://github.com/zalando/patroni) is a template for high
 availability (HA) PostgreSQL solutions using Python. Patroni needs one of the
 following distributed configuration store systems: ZooKeeper, etcd, Consul or
 Kubernetes. In this image Patroni is installed with dependencies for **etcd**.
 
-[pgBackRest](https://pgbackrest.org/) is a reliable backup and restore
+* [pgBackRest](https://pgbackrest.org/) is a reliable backup and restore
 solution for PostgreSQL that seamlessly scales up to the largest databases and
 workloads.
 
-[pg_cron](https://github.com/citusdata/pg_cron) is a simple cron-based job
+#### Additional extensions:
+
+The following extensions can be installed if needed by setting their
+corresponding environment variables to `true` in the build command (see [Build
+arguments](#build-arguments-environment-variables)):
+
+* [pg_cron](https://github.com/citusdata/pg_cron) is a simple cron-based job
 scheduler for PostgreSQL.
 
-[PostGIS](https://postgis.net/) extends the capabilities of the PostgreSQL
+* [PostGIS](https://postgis.net/) extends the capabilities of the PostgreSQL
 relational database by adding support storing, indexing and querying geographic
 data.
 
-[pgRouting](https://pgrouting.org/) extends the PostGIS / PostgreSQL geospatial
-database to provide geospatial routing functionality.
+* [pgRouting](https://pgrouting.org/) extends the PostGIS / PostgreSQL
+geospatial database to provide geospatial routing functionality.
+
+#### Additional PostgreSQL versions:
 
 This Docker image also allows to install additional PostgreSQL major versions
 (useful in case of upgrades) and additional locales (useful if you need
@@ -34,18 +52,14 @@ specific collations for databases).
 
 Tags use the following schema: `<patroni_version>-pg<pg_major_version>-<image_variant>`.
 
-Image variants refers to which PostgreSQL extensions are installed
+Image variants contains the list of additoinal PostgreSQL extensions installed
+in the image, in snake_case, for example:
 
 * `pgcron`: pg_cron
 * `pgcron-postgis`: pg_cron and PostGIS
 * `pgcron-pgrouting`: pg_cron and pgRouting
-* `postgis`: PostGIS
-* `postgis-pgrouting`: PostGIS and pgRouting
-* `pgrouting`: pgRouting
 
-PostgreSQL, Patroni and pgBackRest are installed in all image variants.
-
-If image variant is not specified, all extensions are installed.
+If image variant is not specified, no additional extensions are installed.
 
 All images are based on Debian 12 Bookworm.
 
