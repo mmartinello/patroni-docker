@@ -7,6 +7,11 @@ ARG PG_MAJOR=17
 # Starting from PostgreSQL image
 FROM postgres:$PG_MAJOR as builder
 
+# Metadata
+LABEL version="1.1"
+LABEL description="PostgreSQL, Patroni, pgBackRest and additional extensions"
+LABEL maintainer="Mattia Martinello <mattia@mattiamartinello.com>"
+
 # Create a new image
 FROM scratch
 COPY --from=builder / /
@@ -35,11 +40,6 @@ ARG INSTALL_PGROUTING=false
 
 # Install pgBackRest
 ARG INSTALL_PGBACKREST=true
-
-# Metadata
-LABEL version="1.0"
-LABEL description="Patroni Docker Image"
-LABEL maintainer="Mattia Martinello <mattia@mattiamartinello.com>"
 
 # Install build stuffs
 RUN apt-get update && apt-get install -y --no-install-recommends \
