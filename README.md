@@ -91,7 +91,11 @@ more information.
 
 ### Build arguments (environment variables)
 
+##### PostgreSQL major version:
+
 `PG_MAJOR`: set the PostgreSQL major version to be used (default `17`).
+
+##### Additional extensions:
 
 `INSTALL_PG_CRON`: **pg_cron** will be installed if this variable is set to
 `true`, you can set it to `false` or any other value if you don't want
@@ -104,6 +108,8 @@ more information.
 `INSTALL_PGROUTING`: **pgRouting** will be installed if this variable is set to
 `true`, you can set it to `false` or any other value if you don't want
 **pgRouting** to be installed. The default value is `false`.
+
+##### Optional features:
 
 `ADDITIONAL_PG_MAJORS`: to install multiple PostgreSQL major versions in the
 image, declare here which major versions have to be installed other than the
@@ -184,8 +190,7 @@ This Docker image listens on the following ports:
 
 Patroni can be configured in several ways: global dynamic configuration,
 local configuration file or environent variables. You can use the configuration
-type you prefer, or a group of them. Please refer to [Patroni documentation]
-(https://patroni.readthedocs.io/en/latest/patroni_configuration.html) for
+type you prefer, or a group of them. Please refer to [Patroni documentation](https://patroni.readthedocs.io/en/latest/patroni_configuration.html) for
 more information.
 
 ## Maintainer
