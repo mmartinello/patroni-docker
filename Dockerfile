@@ -5,7 +5,7 @@
 ARG PG_MAJOR=17
 
 # Starting from PostgreSQL image
-FROM postgres:$PG_MAJOR as builder
+FROM postgres:$PG_MAJOR AS builder
 
 # Metadata
 LABEL version="1.1"
