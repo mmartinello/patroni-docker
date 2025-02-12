@@ -110,7 +110,10 @@ RUN if [ "$INSTALL_PGBACKREST" = "true" ]; then \
 
 # Install Patroni
 RUN pip install patroni[psycopg2,etcd]==$PATRONI_VERSION
+
+# Copy the run.sh script and make it executable by postgres user
 COPY run.sh /
+RUN chmod +x /run.sh && chown postgres:postgres /run.sh
 
 # Install additionals PostgreSQL versions
 # looping through ADDITIONAL_PG_MAJORS array
