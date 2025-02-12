@@ -78,7 +78,7 @@ more information.
 
 ### Build arguments (environment variables)
 
-`PG_MAJOR`: set the PostgreSQL major version to be used (default `14`).
+`PG_MAJOR`: set the PostgreSQL major version to be used (default `17`).
 
 `INSTALL_PG_CRON`: **pg_cron** will be installed if this variable is set to
 `true`, you can set it to `false` or any other value if you don't want
@@ -112,10 +112,10 @@ between major versions using the pg_upgrade command, which requires the
 binaries of the previous PostgreSQL version you are upgrading from.
 
 For example, to build a Docker image with additional PostgreSQL versions
-12 and 13, you can use the following docker build command:
+16 and 15, you can use the following docker build command:
 
 ```
-docker build --build-arg PG_MAJOR=16 --build-arg ADDITIONAL_PG_MAJORS="12 13" -t my-postgres-patroni-image .
+docker build --build-arg --build-arg ADDITIONAL_PG_MAJORS="16 15" -t my-postgres-patroni-image .
 ```
 
 ### Build the image
@@ -147,7 +147,7 @@ For example, to build a Docker image with additional PostgreSQL versions
 12 and 13, you can use the following docker build command:
 
 ```
-docker build --build-arg PG_MAJOR=16 --build-arg ADDITIONAL_PG_MAJORS="12 13" -t my-postgres-patroni-image .
+docker build --build-arg --build-arg ADDITIONAL_PG_MAJORS="12 13" -t my-postgres-patroni-image .
 ```
 
 ## Volumes
