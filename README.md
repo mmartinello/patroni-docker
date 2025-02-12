@@ -145,7 +145,7 @@ For example, to build a Docker image with additional PostgreSQL versions
 16 and 15, you can use the following docker build command:
 
 ```
-docker build --build-arg --build-arg ADDITIONAL_PG_MAJORS="16 15" -t my-postgres-patroni-image .
+docker build --build-arg <build_arg> --build-arg <build_arg> ADDITIONAL_PG_MAJORS="16 15" -t my-postgres-patroni-image .
 ```
 
 ### Build the image

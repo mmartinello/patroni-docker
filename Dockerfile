@@ -29,17 +29,14 @@ ARG ADDITIONAL_PG_MAJORS=""
 # Additional locales to be installed (separated by space)
 ARG ADDITIONAL_LOCALES=""
 
-# Install pg_cron
-ARG INSTALL_PG_CRON=false
-
-# Install PostGIS
-ARG INSTALL_POSTGIS=false
-
-# Install pgRouting
-ARG INSTALL_PGROUTING=false
-
 # Install pgBackRest
 ARG INSTALL_PGBACKREST=true
+
+# Do not install any additional extensions
+ARG INSTALL_PG_CRON=false
+ARG INSTALL_POSTGIS=false
+ARG INSTALL_PGROUTING=false
+ARG INSTALL_PGVECTOR=false
 
 # Install build stuffs
 RUN apt-get update && apt-get install -y --no-install-recommends \
