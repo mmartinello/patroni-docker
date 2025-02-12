@@ -42,6 +42,9 @@ data.
 * [pgRouting](https://pgrouting.org/) extends the PostGIS / PostgreSQL
 geospatial database to provide geospatial routing functionality.
 
+* [pgvector](https://github.com/pgvector/pgvector) is an extension to add
+support for vector similarity search to PostgreSQL.
+
 #### Additional PostgreSQL versions:
 
 This Docker image also allows to install additional PostgreSQL major versions
@@ -108,6 +111,11 @@ more information.
 `INSTALL_PGROUTING`: **pgRouting** will be installed if this variable is set to
 `true`, you can set it to `false` or any other value if you don't want
 **pgRouting** to be installed. The default value is `false`.
+
+`INSTALL_PGVECTOR`: **pgvector** will be installed if this variable is set to
+`true`, you can set it to `false` or any other value if you don't want
+**pgvector** to be installed. The default value is `false`.
+
 
 ##### Optional features:
 
