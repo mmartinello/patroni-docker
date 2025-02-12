@@ -135,4 +135,4 @@ RUN apt-get clean
 # Run Patroni
 USER postgres
 WORKDIR /
-CMD /run.sh
+CMD ["/run.sh"]
