@@ -61,8 +61,11 @@ in the image, in snake_case, for example:
 * `pgcron`: pg_cron
 * `pgcron-postgis`: pg_cron and PostGIS
 * `pgcron-pgrouting`: pg_cron and pgRouting
+* ...
 
 If image variant is not specified, no additional extensions are installed.
+
+The `latest` tag does not contain any additional extensions.
 
 All images are based on Debian 12 Bookworm.
 
