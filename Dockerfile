@@ -8,7 +8,7 @@ ARG PG_MAJOR=17
 FROM postgres:$PG_MAJOR AS builder
 
 # Metadata
-LABEL version="1.1"
+LABEL version="1.2"
 LABEL description="PostgreSQL, Patroni, pgBackRest and additional extensions"
 LABEL maintainer="Mattia Martinello <mattia@mattiamartinello.com>"
 
