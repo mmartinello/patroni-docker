@@ -69,31 +69,49 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 # Install pg_cron if enabled
 RUN if [ "$INSTALL_PG_CRON" = "true" ]; then \
         apt-get update -y && apt-get install -y \
-        postgresql-$PG_MAJOR-cron \
-        && rm -rf /var/lib/apt/lists/*; \
+        postgresql-$PG_MAJOR-cron; \
+        for ADDITIONAL_PG_MAJOR in $ADDITIONAL_PG_MAJORS; do \
+            apt-get install -y \
+            postgresql-$ADDITIONAL_PG_MAJOR-cron; \
+        done; \
+        rm -rf /var/lib/apt/lists/*; \
     fi
 
 # Install PostGIS if enabled
 RUN if [ "$INSTALL_POSTGIS" = "true" ]; then \
         apt-get update -y && apt-get install -y \
         postgresql-$PG_MAJOR-postgis-3 \
-        postgresql-$PG_MAJOR-postgis-3-scripts \
-        && rm -rf /var/lib/apt/lists/*; \
+        postgresql-$PG_MAJOR-postgis-3-scripts; \
+        for ADDITIONAL_PG_MAJOR in $ADDITIONAL_PG_MAJORS; do \
+            apt-get install -y \
+            postgresql-$ADDITIONAL_PG_MAJOR-postgis-3 \
+            postgresql-$ADDITIONAL_PG_MAJOR-postgis-3-scripts; \
+        done; \
+        rm -rf /var/lib/apt/lists/*; \
     fi
 
 # Install pgRouting if enabled
 RUN if [ "$INSTALL_PGROUTING" = "true" ]; then \
         apt-get update -y && apt-get install -y \
         postgresql-$PG_MAJOR-pgrouting \
-        postgresql-$PG_MAJOR-pgrouting-scripts \
-        && rm -rf /var/lib/apt/lists/*; \
+        postgresql-$PG_MAJOR-pgrouting-scripts; \
+        for ADDITIONAL_PG_MAJOR in $ADDITIONAL_PG_MAJORS; do \
+            apt-get install -y \
+            postgresql-$ADDITIONAL_PG_MAJOR-pgrouting \
+            postgresql-$ADDITIONAL_PG_MAJOR-pgrouting-scripts; \
+        done; \
+        rm -rf /var/lib/apt/lists/*; \
     fi
 
 # Install pgvector if enabled
 RUN if [ "$INSTALL_PGVECTOR" = "true" ]; then \
         apt-get update -y && apt-get install -y \
-        postgresql-$PG_MAJOR-pgvector \
-        && rm -rf /var/lib/apt/lists/*; \
+        postgresql-$PG_MAJOR-pgvector; \
+        for ADDITIONAL_PG_MAJOR in $ADDITIONAL_PG_MAJORS; do \
+            apt-get install -y \
+            postgresql-$ADDITIONAL_PG_MAJOR-pgvector; \
+        done; \
+        rm -rf /var/lib/apt/lists/*; \
     fi
 
 # Install pgBackRest if enabled
