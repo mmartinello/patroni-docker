@@ -127,7 +127,7 @@ RUN if [ "$INSTALL_PGBACKREST" = "true" ]; then \
         && chmod 700 /var/lib/postgresql/.ssh \
         && touch /var/lib/postgresql/.ssh/known_hosts \
         && chmod 644 /var/lib/postgresql/.ssh/known_hosts \
-        && mkdir /run/sshd; \
+        && mkdir -p /run/sshd; \
     fi
 
 # Install Patroni
