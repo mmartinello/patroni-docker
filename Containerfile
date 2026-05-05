@@ -20,7 +20,7 @@ COPY --from=builder / /
 ARG PG_MAJOR=17
 
 # Patroni version
-ARG PATRONI_VERSION=3.3.5
+ARG PATRONI_VERSION=4.0.0
 
 # PostgreSQL additional version (will additionally installed beyond the major
 # version specified before only if this variable is specified)
@@ -30,13 +30,13 @@ ARG ADDITIONAL_PG_MAJORS=""
 ARG ADDITIONAL_LOCALES=""
 
 # Install pgBackRest
-ARG INSTALL_PGBACKREST=true
+ARG INSTALL_PGBACKREST=false
 
 # Do not install any additional extensions
 ARG INSTALL_PG_CRON=false
 ARG INSTALL_POSTGIS=false
 ARG INSTALL_PGROUTING=false
-ARG INSTALL_PGVECTOR=false
+ARG INSTALL_PGVECTOR=true
 
 # Install build stuffs
 RUN apt-get update && apt-get install -y --no-install-recommends \
