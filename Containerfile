@@ -47,7 +47,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install Python stuffs
 RUN apt-get update -y && apt-get install -y \
     python3-pip \
-    python3.11-venv \
+    python3-venv \
     && rm -rf /var/lib/apt/lists/*
 
 # Install additional locales if ADDITIONAL_LOCALES is set
