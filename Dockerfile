@@ -20,7 +20,7 @@ COPY --from=builder / /
 ARG PG_MAJOR=17
 
 # Patroni version
-ARG PATRONI_VERSION=3.3.5
+ARG PATRONI_VERSION=4.0.0
 
 # PostgreSQL additional version (will additionally installed beyond the major
 # version specified before only if this variable is specified)
@@ -36,7 +36,7 @@ ARG INSTALL_PGBACKREST=true
 ARG INSTALL_PG_CRON=false
 ARG INSTALL_POSTGIS=false
 ARG INSTALL_PGROUTING=false
-ARG INSTALL_PGVECTOR=false
+ARG INSTALL_PGVECTOR=true
 
 # Install build stuffs
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -47,7 +47,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install Python stuffs
 RUN apt-get update -y && apt-get install -y \
     python3-pip \
-    python3.11-venv \
+    python3-venv \
     && rm -rf /var/lib/apt/lists/*
 
 # Install additional locales if ADDITIONAL_LOCALES is set
@@ -127,11 +127,11 @@ RUN if [ "$INSTALL_PGBACKREST" = "true" ]; then \
         && chmod 700 /var/lib/postgresql/.ssh \
         && touch /var/lib/postgresql/.ssh/known_hosts \
         && chmod 644 /var/lib/postgresql/.ssh/known_hosts \
-        && mkdir /run/sshd; \
+        && mkdir -p /run/sshd; \
     fi
 
 # Install Patroni
-RUN pip install patroni[psycopg2,etcd]==$PATRONI_VERSION
+RUN pip install patroni[psycopg2,etcd,consul]==$PATRONI_VERSION
 
 # Copy the run.sh script and make it executable by postgres user
 COPY run.sh /
