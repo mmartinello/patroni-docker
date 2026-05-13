@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Run sshd for pgBackRest
-PGBACKREST_SSH_RUN=${PGBACKREST_SSH_RUN:-false}
+# Run sshd (needed for pgBackRest)
+SSH_RUN=${SSH_RUN:-false}
 
-if [ "$PGBACKREST_SSH_RUN" == "true" ]; then
+if [ "$SSH_RUN" == "true" ]; then
     echo "Executing sshd ..."
     
     mkdir -p /var/lib/postgresql/.ssh

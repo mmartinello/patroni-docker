@@ -4,8 +4,11 @@
 # PostgreSQL major version
 ARG PG_MAJOR=17
 
+# Debian release
+ARG DEBIAN_RELEASE=trixie
+
 # Starting from PostgreSQL image
-FROM postgres:$PG_MAJOR AS builder
+FROM postgres:$PG_MAJOR-$DEBIAN_RELEASE AS builder
 
 # Metadata
 LABEL version="1.2"

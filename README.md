@@ -26,6 +26,8 @@ Kubernetes. In this image Patroni is installed with dependencies for **etcd**.
 solution for PostgreSQL that seamlessly scales up to the largest databases and
 workloads.
 
+The `postgresql-contrib` package is also installed.
+
 #### Additional extensions:
 
 The following extensions can be installed if needed by setting their
